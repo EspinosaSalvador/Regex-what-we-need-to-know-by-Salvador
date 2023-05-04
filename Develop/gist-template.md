@@ -1,6 +1,6 @@
-# Title (replace with your title)
+# Introduction to Regex
 
-Introductory paragraph (replace this with your text)
+Hello user, this was created so anyone who has problems or wish to lear what is Regex can jump on this and feel profesional right away.
 
 ## Summary
 
@@ -23,6 +23,35 @@ Briefly summarize the regex you will be describing and what you will explain. In
 ## Regex Components
 
 ### Anchors
+
+there are two Anchors that we should pay attention to.
+
+* ^(Caret)Anchor
+* $(dollar)Anchor
+
+the "^" Anchor is making sure that we have the same on at the beggining of the test here is an example 
+
+```
+const regex = /^hello/;
+console.log(regex.test("hello world"));   // true
+console.log(regex.test("goodbye world")); // false
+```
+as we can see on the example above the "^" is looking for hello at the beggining of the sentence so it can be true.
+
+and on the other one as it does not start and matches with "hello" the test was false.
+
+
+now lets see "$" Anchor.
+
+now the dollar anchor is looking for the end of the string to match here is an example 
+
+```
+const regex = /world$/;
+console.log(regex.test("hello world"));   // true
+console.log(regex.test("hello there"));   // false
+```
+
+
 
 ### Quantifiers
 
