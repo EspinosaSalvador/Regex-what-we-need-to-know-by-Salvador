@@ -1,6 +1,6 @@
 # Introduction to Regex
 
-Hello user, this was created so anyone who has problems or wish to lear what is Regex can jump on this and feel profesional right away.
+Hello user, this reposiroty was created so anyone who has problems or wish to learn what is Regex can jump on this and feel profesional right away.
 
 ## Summary
 
@@ -8,6 +8,7 @@ Briefly summarize the regex you will be describing and what you will explain. In
 
 ## Table of Contents
 
+- [What is Regex](#what-is-regex)
 - [Anchors](#anchors)
 - [Quantifiers](#quantifiers)
 - [OR Operator](#or-operator)
@@ -19,6 +20,10 @@ Briefly summarize the regex you will be describing and what you will explain. In
 - [Boundaries](#boundaries)
 - [Back-references](#back-references)
 - [Look-ahead and Look-behind](#look-ahead-and-look-behind)
+
+### What is Regex
+
+Regular expressions (regex) are a set of characters that allow you to search for and match patterns in text. It is a powerful tool for manipulating text and is widely used in programming and data processing applications. To use regex, you need to be familiar with the syntax and special characters that represent different types of characters and patterns in text. With regex, you can perform complex searches and replace operations in text with just a few lines of code. It is an essential tool for anyone working with text data, and mastering it can greatly improve your productivity and efficiency.
 
 ## Regex Components
 
