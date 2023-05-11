@@ -70,33 +70,72 @@ for this two exmaples I believe it was better to use normal strings.
 
 Quantifiers define the minimum and maximum number of times that a character or set of characters must match.
 
-*(+)
+- (+)
 
 ```
 const regex = /^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/;
 ```
 
-the plus sign means one or more occurrences of the previous character or group, in this casa ([a-z]+) matches one or more lowercase letters. For example, "div","span","p" all of this ones match the part of the regex pattern. 
+the plus sign means one or more occurrences of the previous character or group, in this casa ([a-z]+) matches one or more lowercase letters. For example, "div","span","p" all of this ones match the part of the regex pattern.
 
-**
+- (\*)
 
 the asterisk means zero or more occurrences of the previous character or group. in this case,
 
 ```
 ([^<]+)
 ```
+
 matches zero or more characters that are not the following "<"
-
-```
-
-
-```
 
 ```
 const html2 = "<span class='highlight'>Some text</span>";
 ```
 
+in the example of the above the class container, would match the html tag providing with a true when we test this.
+
+- (?)
+
+the Question mark means that zero or one occurence of the prevoius character or group. but this one is not used in the example of the HTML tag.
+
+- {}
+
+The curly brackets are also not used for this example of the html Tag matching cases but it can be used ot specify a range of the ocurrence of the previous characters or group between three to five times.
+
 ### OR Operator
+
+the or operator in regex is represented by the pipe symbol which is this one "|"and it usuallu allows us to specifyh the multiple alternatives tfor the patters that we have. for this example we are going to use this
+
+```
+/^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/
+```
+
+The OR operator is used inside of a non-capturong group "(?:)" to specify two alternatives to match usully the closing tags of the html
+
+```
+(?:>(.*)<\/\1>|\s+\/>)
+```
+
+- "(?:)" produces a non-capturing group, which doesn't capture the text as a separate group but instead matches it.
+- "<" matches the greater-than symbol that comes after the HTML element's beginning tag.
+
+-"(.\'\'\*)" matches any characters inside the HTML element (apart from line terminators, which will be collected as a group).
+-"<\/\1>"matches the tag name in the opening tag, where 1 is a backreference to the first capturing group, which matches the closing tag of the HTML element.
+-"|" is the OR operator.
+-"\s+\/>" it usaually matches a self-closing tag that ends with a forward slash.
+
+This indicates that the regex will match either a self-closing tag that ends with a forward slash or the whole opening and closing tags of an HTML element (with any text in between).
+
+Here are a few instances of how this regex's OR operator is used in JavaScript:
+
+```
+const regex = /^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/;
+
+console.log(regex.test('<div>Hello world</div>'));  // true
+console.log(regex.test('<img src="image.jpg" />')); // true
+console.log(regex.test('<span>'));                  // false
+console.log(regex.test('</div>'));                  // false
+```
 
 ### Character Classes
 
