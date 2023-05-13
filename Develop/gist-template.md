@@ -13,7 +13,7 @@ Expect the explanations to be done with this example.
 
 ## Summary
 
-Briefly summarize the regex you will be describing and what you will explain. Include a code snippet of the regex. Replace this text with your summary.
+An explanation of regex, with the example of matching an HTML element as the main focus. The different parts of a Regex expression are explained, including anchors, quantifiers, the OR operator, character classes, flags, grouping and capturing, bracket expressions, greedy and lazy match, boundaries, back-references, and look-ahead and look-behind. To demonstrate how these components function, we offer examples and code snippets.
 
 ## Table of Contents
 
@@ -152,29 +152,17 @@ the pattern [a-z] matches any lowercase letter this will be included from a to z
 
 most of the time flags are used after the closing statement all the way at the end.
 
-- g
+- g The global flag that enables the regular expression to find more than one instance of an input string.
 
-a global flag that enables the regular expression to find more than one instance of an input string.
+- i the regular expression matches case-insensitively thanks to the case-insensitive parameter.
 
-- i
+- m The multiline flag causes the ^ and $ anchors to match the start and end of each line rather than the start and end of the whole input string.
 
-the regular expression matches case-insensitively thanks to the case-insensitive parameter.
+- s The character is made to match any character, including line terminators, thanks to the dot-all flag.
 
-- m
+- u Unicode support is enabled with the unicode flag, which also changes how some metacharacters function.
 
-The multiline flag causes the ^ and $ anchors to match the start and end of each line rather than the start and end of the whole input string.
-
-- s
-
-The. character is made to match any character, including line terminators, thanks to the dot-all flag.
-
-- u
-
-Unicode support is enabled with the unicode flag, which also changes how some metacharacters function.
-
-- y
-
-sticky flag, which makes the regular expression match only at the current position in the input string.
+- y Sticky flag, which makes the regular expression match only at the current position in the input string.
 
 ```
 const regex = /^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/gi;
@@ -318,6 +306,34 @@ The back-reference is once more used in the replace() method to replace the open
 
 ### Look-ahead and Look-behind
 
+Advanced regex features called "look-ahead" and "look-behind" let you match text depending on the presence or absence of specific patterns before or after the text you're seeking to match. Here is a description of how they operate along with examples that match an HTML tag using the regex pattern:
+
+- Look-ahead
+
+You can only match a pattern with a positive look-ahead if it is followed by another distinct pattern. The syntax (?=pattern), where pattern is the pattern that must come after the matched text, is used to produce a positive look-ahead.
+
+For illustration, suppose we only wish to match HTML tags that have a class attribute. A forward-looking perspective can help us achieve this:
+
+```
+const regex = /<([a-z]+)([^<]+)*(?=\sclass)/g;
+const html = '<div class="example">This is an example</div><p>This is not</p>';
+const matches = html.match(regex);
+console.log(matches); // ['<div class="example"']
+```
+
+Look-behind:
+
+Similar to a positive look-ahead, a positive look-behind scans behind the matched text rather than in front of it. The syntax (?=pattern), where pattern is the pattern that must come before the matched text, is used to establish a positive look-behind.
+
+For illustration, suppose we only want to match HTML tags that come right after the p> paragraph element. To do this, we can employ a constructive look-behind strategy:
+
+```
+const regex = /(?<=<p>)<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)/g;
+const html = '<p><div>This is an example</div></p><p><span>This is not</span></p>';
+const matches = html.match(regex);
+console.log(matches); // ['<div>This is an example</div>']
+```
+
 ## Author
 
-A short section about the author with a link to the author's GitHub profile (replace with your information and a link to your profile)
+- [Salvador Espinosa Valdez](https://github.com/EspinosaSalvador)
