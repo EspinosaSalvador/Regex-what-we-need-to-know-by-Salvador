@@ -281,7 +281,40 @@ Regex uses boundary matches to indicate where the pattern should match in refere
 
 Boundaries can be used to verify that an HTML tag is a complete tag and isn't a portion of a longer string when an HTML tag is being matched.
 
+```
+// Using word boundary to match the entire HTML tag
+const regexWithBoundary = /\b^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)\b$/;
+const htmlTagWithExtraText = 'This is some extra text before the <a href="https://www.example.com">Example</a> tag.';
+
+const matchWithBoundary = htmlTagWithExtraText.match(regexWithBoundary);
+console.log(matchWithBoundary); // null - tag is not matched because of extra text
+
+const matchWithBoundary2 = htmlTag.match(regexWithBoundary);
+console.log(matchWithBoundary2[0]); // '<a href="https://www.example.com">Example</a>' - entire tag is matched
+```
+
+In order to make sure that the complete HTML element, and not just a portion of it, gets matched, the word boundary b was inserted in this example. To make sure that the HTML tag is matched at the beginning of the string and does not have any other content before or after it, we also utilized the beginning of the string $ and the end of the string.
+
 ### Back-references
+
+Within the same regular expression structure, back-references in regular expressions let you refer to previously matched groups. They are identified by a backslash and the group number, starting at 1. The JavaScript match() and replace() functions both support the use of back references.
+
+```
+const regex = /^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/;
+const htmlTag = '<a href="https://www.example.com">Example</a>';
+
+const match = htmlTag.match(regex);
+const tagName = match[1]; // 'a'
+const attributes = match[2]; // ' href="https://www.example.com"'
+const content = match[3]; // 'Example'
+
+const updatedHtmlTag = htmlTag.replace(regex, '<$1$2>$3</$1>');
+console.log(updatedHtmlTag); // '<a href="https://www.example.com">Example</a>'
+```
+
+The closing tag (.\*/1>) in this example uses the back-reference 1 to match the name of the opening tag. This guarantees that the tag names of the opening and closing tags match.
+
+The back-reference is once more used in the replace() method to replace the opening and closing tags with the $1 and $3 group values that were collected. This preserves the content while effectively removing any superfluous characteristics or spaces between the tags.
 
 ### Look-ahead and Look-behind
 
