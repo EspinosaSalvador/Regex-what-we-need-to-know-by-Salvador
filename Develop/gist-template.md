@@ -8,6 +8,7 @@ for this examples I choose to explain Regex with the example of
 Matching an HTML Tag – /^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/
 ```
 
+`
 Expect the explanations to be done with this example.
 
 ## Summary
@@ -119,7 +120,7 @@ The OR operator is used inside of a non-capturong group "(?:)" to specify two al
 - "(?:)" produces a non-capturing group, which doesn't capture the text as a separate group but instead matches it.
 - "<" matches the greater-than symbol that comes after the HTML element's beginning tag.
 
--"(.\'\'\*)" matches any characters inside the HTML element (apart from line terminators, which will be collected as a group).
+-"(.\'\*)" matches any characters inside the HTML element (apart from line terminators, which will be collected as a group).
 -"<\/\1>"matches the tag name in the opening tag, where 1 is a backreference to the first capturing group, which matches the closing tag of the HTML element.
 -"|" is the OR operator.
 -"\s+\/>" it usaually matches a self-closing tag that ends with a forward slash.
@@ -139,7 +140,54 @@ console.log(regex.test('</div>'));                  // false
 
 ### Character Classes
 
+A character class is a mechanism to match a group of characters in a regular expression. Any character that comes inside the square brackets, [], which define a character class, is regarded as a potential match. For instance, any instance of "a", "b", or "c" will match the character class [abc]. mechanics
+
+lets go with examples:
+
+- [a-z]
+
+the pattern [a-z] matches any lowercase letter this will be included from a to z, in regex the first capturing group matches one or more lowercase letters immedeatly the following starting from the opening of "<"
+
 ### Flags
+
+most of the time flags are used after the closing statement all the way at the end.
+
+- g
+
+a global flag that enables the regular expression to find more than one instance of an input string.
+
+- i
+
+the regular expression matches case-insensitively thanks to the case-insensitive parameter.
+
+- m
+
+The multiline flag causes the ^ and $ anchors to match the start and end of each line rather than the start and end of the whole input string.
+
+- s
+
+The. character is made to match any character, including line terminators, thanks to the dot-all flag.
+
+- u
+
+Unicode support is enabled with the unicode flag, which also changes how some metacharacters function.
+
+- y
+
+sticky flag, which makes the regular expression match only at the current position in the input string.
+
+```
+const regex = /^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/gi;
+
+console.log(regex.test("<p>Some text here</p>")); // true
+console.log(regex.test("<div><p>Some text here</p></div>")); // true
+console.log(regex.test("<P>Some text here</P>")); // true (because of the 'i' flag)
+console.log(regex.test("<p>Some\ntext\nhere</p>")); // true (because of the 'm' flag)
+console.log(regex.test("<p>Some text here</p>\n<p>More text here</p>")); // true (because of the 'm' flag)
+console.log(regex.test("<p>Some text here</p>")); // true (because of the 's' flag)
+console.log(regex.test("<😀>Some text here</😀>")); // true (because of the 'u' flag)
+console.log(regex.test("<p>Some text here</p>")); // true (because the 'g' flag allows multiple matches)
+```
 
 ### Grouping and Capturing
 
