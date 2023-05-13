@@ -321,7 +321,7 @@ const matches = html.match(regex);
 console.log(matches); // ['<div class="example"']
 ```
 
-Look-behind:
+- Look-behind:
 
 Similar to a positive look-ahead, a positive look-behind scans behind the matched text rather than in front of it. The syntax (?=pattern), where pattern is the pattern that must come before the matched text, is used to establish a positive look-behind.
 
