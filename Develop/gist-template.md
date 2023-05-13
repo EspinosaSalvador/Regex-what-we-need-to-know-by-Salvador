@@ -224,9 +224,62 @@ For instance, we can use the bracket expression [abc] to match a single lowercas
 
 To match particular characters in the HTML tag example, we can utilize bracket expressions. For instance, we may use the formula [a-z-] to match any lowercase letter or hyphen within the tag name. We can use the expression [s] to match any whitespace character within the tag attributes.
 
+To match particular characters in the HTML tag example, we can utilize bracket expressions. For instance, we may use the formula [a-z-] to match any lowercase letter or hyphen within the tag name. We can use the expression [s] to match any whitespace character within the tag attributes.
+
+Here is an updated illustration of how to capture the tag name and characteristics using bracket expressions:
+
+```
+const regex = /^<([a-z-]+)([^<]*)?(?:>(.*)<\/\1>|\s+\/>)$/;
+const htmlTag = '<a href="https://www.example.com">Example</a>';
+
+const match = htmlTag.match(regex);
+const tagName = match[1]; // 'a'
+const attributes = match[2]; // ' href="https://www.example.com"'
+```
+
 ### Greedy and Lazy Match
 
+In regular expressions, "greedy" and "lazy" refer to the way the engine matches patterns that have multiple possible matches.
+
+A greedy match will match the longest possible string that satisfies the pattern, while a lazy match will match the shortest possible string that satisfies the pattern.
+
+for exmaple lets try to use this
+
+```
+/<(.+)>/
+```
+
+the regex is "greedy" because the ".+" pattern will match as many characters as possible, including and nested angle brackets. So, when we try to match the string.
+
+```
+'<a href="http://www.example.com">Example</a>'.match(/<(.+)>/)
+// Output: ["<a href="http://www.example.com">Example</a>", "a href="http://www.example.com">Example</a>"]
+```
+
+the regex will try to match the whole string.
+
+In this case, the regex engine matched from the first < character to the last > character, including the nested angle brackets in the href attribute.
+
+to make it lazy this is what we can do
+
+```
+/<(.+?)>/
+```
+
+with the ".+?" the pattern will look for as few characters as possible due that we are on lazy mode.
+
+```
+'<a href="http://www.example.com">Example</a>'.match(/<(.+?)>/)
+// Output: ["<a href="http://www.example.com">", "a href="http://www.example.com""]
+```
+
+in the case above, the regex engine matched only from the first "<" character that was listed on ">" excludintg the nested angle brackets.
+
 ### Boundaries
+
+Regex uses boundary matches to indicate where the pattern should match in reference to a word, line, or string. The word boundary "b," the start of the string "" and the end of the string "$" are the three most frequent boundary matches.
+
+Boundaries can be used to verify that an HTML tag is a complete tag and isn't a portion of a longer string when an HTML tag is being matched.
 
 ### Back-references
 
