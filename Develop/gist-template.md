@@ -189,9 +189,40 @@ console.log(regex.test("<😀>Some text here</😀>")); // true (because of the 
 console.log(regex.test("<p>Some text here</p>")); // true (because the 'g' flag allows multiple matches)
 ```
 
+The regular expression in the preceding example is made case-insensitive and global using the gi flags. Additionally, we use the s option to make the. character match any character (including line terminators) and the m flag to make the and $ anchors match the beginning and end of each line. Additionally, we employ the u flag to activate complete Unicode support, enabling the regular expression to recognize emoji characters. Finally, we match multiple instances of the regular expression in the input string by using the g flag.
+
 ### Grouping and Capturing
 
+Grouping and capturing is the process of creating a subexpression within the pattern that can be referred to as a group. These groups allow you to match and capture a specific part of the matched text, which can be useful in various scenarions which will be the following.
+
+- ([a-z]+)
+
+Between angle brackets, this group matches and catches one or more lowercase letters. The tag name is recorded by this group.
+
+- ([^<]+)\*
+
+There are 0 or more characters in this group that match and are captured. This group tracks the characteristics of the tag.
+
+- (.\*)(<\/\1>)?
+
+The closing tag (if present) and the content of the tag are matched and captured by this group. Any character that matches and is captured by the (.\*) at least a dozen times.
+
+```
+const regex = /^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/;
+const htmlTag = '<a href="https://www.example.com">Example</a>';
+
+const match = htmlTag.match(regex);
+const tagName = match[1]; // 'a'
+const attributes = match[2]; // ' href="https://www.example.com"'
+```
+
 ### Bracket Expressions
+
+Character sets, commonly referred to as bracket expressions, are used to match a certain character from a group of characters. A group of characters must be enclosed in square brackets [in the syntax for bracket expressions].
+
+For instance, we can use the bracket expression [abc] to match a single lowercase a, b, or c. Similarly, we can use the bracket expression [0-9] to match a single digit. The character can be used to negate a character set; for instance, [abc] will match any character that is not an a, b, or c.
+
+To match particular characters in the HTML tag example, we can utilize bracket expressions. For instance, we may use the formula [a-z-] to match any lowercase letter or hyphen within the tag name. We can use the expression [s] to match any whitespace character within the tag attributes.
 
 ### Greedy and Lazy Match
 
